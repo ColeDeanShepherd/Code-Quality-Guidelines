@@ -68,6 +68,7 @@ Concerns with this program:
 * Slow due to arbitrary-precision integers.
 
 ```
+// F(n) = F(n-1) + F(n-2)
 fn fibonacci(n: NonNegativeInt32): NonNegativeInt32 {
     if n = 0 {
         return 0
@@ -75,6 +76,7 @@ fn fibonacci(n: NonNegativeInt32): NonNegativeInt32 {
         return 1
     }
     
+    // Compute F(N) iteratively starting with F(2).
     var fibNMinus2: NonNegativeInt32 := 0
     var fibNMinus1: NonNegativeInt32 := 1
     var fibN: NonNegativeInt32 := uninitialized
@@ -92,6 +94,7 @@ fn fibonacci(n: NonNegativeInt32): NonNegativeInt32 {
 Concerns with this program:
 
 * Possible integer overflow at `fibN := fibNMinus2 + fibNMinus1`
+* The concise definition of the Fibonacci numbers is obscured by the imperative instructions to calculate it.
 
 ## Naming
 
@@ -135,6 +138,17 @@ Concerns with this program:
 ## Overflow & Underflow
 
 * How the hell do you handle this in reliable systems???
+* Operations causing integer overflow
+  * addition (positive + positive, negative + negative)
+  * subtraction (positive - negative, negative - positive)
+  * multiplication
+  * casting
+* Ways to mitigate integer overflow:
+  * In programming language:
+    * Make the type system more accurate. (Int32 + Int32) does not result in an Int32, it results in an Int64. You then have to cast it back to Int32.
+    * Statically-checked contracts. An if statement needs to be inserted handling the overflow for the compiler to permit the operation.
+  * Use compiler checks with exhaustive tests.
+* Operations causing floating-point underflow:
 
 ## malloc failures
 
@@ -193,3 +207,7 @@ Concerns with this program:
 ## Privacy & User Data
 
 * EU General Data Protection Regulation (GDPR)
+
+## Resources
+
+* http://projects.webappsec.org/w/page/13246927/FrontPage

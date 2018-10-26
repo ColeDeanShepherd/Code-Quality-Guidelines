@@ -66,6 +66,7 @@ fn fibonacci(n: NonNegativeInteger): NonNegativeInteger {
 Concerns with this program:
 
 * Slow due to arbitrary-precision integers.
+* The concise definition of the Fibonacci numbers is obscured by the imperative instructions to calculate it efficiently.
 
 ```
 // F(n) = F(n-1) + F(n-2)
@@ -94,15 +95,57 @@ fn fibonacci(n: NonNegativeInt32): NonNegativeInt32 {
 Concerns with this program:
 
 * Possible integer overflow at `fibN := fibNMinus2 + fibNMinus1`
-* The concise definition of the Fibonacci numbers is obscured by the imperative instructions to calculate it.
+* The concise definition of the Fibonacci numbers is obscured by the imperative instructions to calculate it efficiently.
+
+```
+// F(n) = F(n-1) + F(n-2)
+fn fibonacci(n: NonNegativeInt32): NonNegativeInt32 {
+    if n = 0 {
+        return 0
+    } else if n = 1 {
+        return 1
+    }
+    
+    // Compute F(N) iteratively starting with F(2).
+    var fibNMinus2: NonNegativeInt32 := 0
+    var fibNMinus1: NonNegativeInt32 := 1
+    var fibN: NonNegativeInt32 := uninitialized
+    
+    for (var curN: NonNegativeInt32 := 2; curN <= n; curN++) {
+        fibN := (NonNegativeInt32)(fibNMinus2 + fibNMinus1)
+        fibNMinus2 := fibNMinus1
+        fibNMinus1 := fibN
+    }
+    
+    return fibN
+}
+```
+
+We're assuming integer addition promotes the type to the next biggest integer type.
+
+Concerns with this program:
+
+* Possible integer overflow at `fibN := (NonNegativeInt32)(fibNMinus2 + fibNMinus1)`, but now the possibility is made explicit.
+* The concise definition of the Fibonacci numbers is obscured by the imperative instructions to calculate it efficiently.
+
+## Error Handling
+
+* Error codes
+* Exceptions
+  * checked
+  * unchecked
+  * call stack unwinding
+* Monadic
 
 ## Naming
 
 * Be descriptive enough to make names understandable without outside knowledge, given the context.
   * Avoid local acronyms. Global acronyms, used throughout the system, can be OK.
 * Be consistent
-  * 
 * Use opposites
+  * Start() & Stop()
+  * Create() & Destroy()
+  * etc.
 
 ## Named Arguments
 
@@ -113,9 +156,27 @@ Concerns with this program:
 
 ## Newlines & White-space
 
+* **Use whatever your team uses, and be consistent with it.**
+
 * Braces
-* Multi-line alignment
+
+  ```
+  fn test() {
+      // body
+  }
+  ```
+
+  ```
+  fn test()
+  {
+      // body
+  }
+  ```
+
+* Multi-line alignmentsd
+
 * Tabs vs. spaces
+
 * UNIX-style vs. Windows-style line endings
 
 ## Testing

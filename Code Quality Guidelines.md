@@ -40,6 +40,7 @@ Concerns with this program:
 * non-integral `n`
 * Stack overflow with large `n`.
 * Needless re-computation of sub-problems.
+* No tests
 
 ```
 fn fibonacci(n: NonNegativeInteger): NonNegativeInteger {
@@ -67,6 +68,7 @@ Concerns with this program:
 
 * Slow due to arbitrary-precision integers.
 * The concise definition of the Fibonacci numbers is obscured by the imperative instructions to calculate it efficiently.
+* No tests
 
 ```
 // F(n) = F(n-1) + F(n-2)
@@ -96,6 +98,7 @@ Concerns with this program:
 
 * Possible integer overflow at `fibN := fibNMinus2 + fibNMinus1`
 * The concise definition of the Fibonacci numbers is obscured by the imperative instructions to calculate it efficiently.
+* No tests
 
 ```
 // F(n) = F(n-1) + F(n-2)
@@ -118,6 +121,24 @@ fn fibonacci(n: NonNegativeInt32): NonNegativeInt32 {
     }
     
     return fibN
+}
+fn fibonacci_0_equals_0() {
+	assert(fibonacci(0) == 0)
+}
+fn fibonacci_1_equals_1() {
+	assert(fibonacci(1) == 1)
+}
+fn fibonacci_2_equals_1() {
+	assert(fibonacci(2) == 1)
+}
+fn fibonacci_3_equals_2() {
+	assert(fibonacci(3) == 2)
+}
+fn fibonacci_5_equals_5() {
+	assert(fibonacci(5) == 5)
+}
+fn fibonacci_10_equals_55() {
+	assert(fibonacci(10) == 55)
 }
 ```
 
@@ -185,6 +206,7 @@ Concerns with this program:
 * integration testing
 * stress testing
 * integration with D.B.C.
+* Testing is useful for specifying and verifying the intended behavior of code, and for ensuring that code doesn't regress when refactoring or fixing bugs.
 
 ## Design By Contract
 

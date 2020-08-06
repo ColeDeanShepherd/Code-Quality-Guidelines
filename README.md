@@ -237,6 +237,24 @@ Concerns with this program:
 
 * How the hell do you handle this in reliable systems???
 
+## Functions that modify data vs returning new data with modifications
+
+* You can implement functions that return new data with modifications using functions that modify data directly, but not the other way around:
+
+```
+fn modifyData(data: Data) {
+  data.value = 3;
+}
+
+fn dataWithModification(data: Data) {
+  let mut newData = copy(data);
+  modifyData(newData);
+  return newData;
+}
+```
+
+
+
 ## Performance
 
 * Data-oriented design
